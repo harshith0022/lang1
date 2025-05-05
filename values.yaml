@@ -15,7 +15,7 @@ langfuse:
         name: langfuse-secrets
         key: nextauth_secret
   clickhouse:
-    enabled: false
+    enabled: true
     auth:
       username: default
       password: your_clickhouse_password
