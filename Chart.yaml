@@ -1,0 +1,6 @@
+apiVersion: v2
+name: qa1-langfuse
+description: A Helm chart for deploying Langfuse with qa1-prefixed services
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "qa1-langfuse.fullname" . }}-web
+  labels:
+    app.kubernetes.io/name: {{ include "qa1-langfuse.name" . }}
+    helm.sh/chart: {{ include "qa1-langfuse.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: web
+    spec:
+      containers:
+        - name: langfuse-web
+          image: "ghcr.io/langfuse/langfuse:latest"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.langfuse.databaseUrl | quote }}
+            - name: REDIS_HOST
+              value: {{ .Values.langfuse.redis.host | quote }}
+            - name: REDIS_PORT
+              value: {{ .Values.langfuse.redis.port | quote }}
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.langfuse.nextauth.secret.secretKeyRef.name }}
+                  key: {{ .Values.langfuse.nextauth.secret.secretKeyRef.key }}
+            - name: SALT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.langfuse.salt.secretKeyRef.name }}
+                  key: {{ .Values.langfuse.salt.secretKeyRef.key }}
+            - name: CLICKHOUSE_HOST
+              value: {{ .Values.langfuse.clickhouse.host | quote }}
+            - name: CLICKHOUSE_PORT
+              value: {{ .Values.langfuse.clickhouse.port | quote }}
+            - name: CLICKHOUSE_USER
+              value: {{ .Values.langfuse.clickhouse.auth.username | quote }}
+            - name: CLICKHOUSE_PASSWORD
+              value: {{ .Values.langfuse.clickhouse.auth.password | quote }}
+          readinessProbe:
+            httpGet:
+              path: /api/public/health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
