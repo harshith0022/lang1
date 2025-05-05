@@ -49,6 +49,8 @@ spec:
               value: {{ .Values.langfuse.clickhouse.auth.username | quote }}
             - name: CLICKHOUSE_PASSWORD
               value: {{ .Values.langfuse.clickhouse.auth.password | quote }}
+            - name: CLICKHOUSE_URL
+              value: {{ .Values.langfuse.clickhouseUrl | quote }}
           readinessProbe:
             httpGet:
               path: /api/public/health
