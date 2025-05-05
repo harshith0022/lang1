@@ -28,10 +28,13 @@ langfuse:
   clickhouseUrl: "http://qa1-langfuse-clickhouse.qa1.svc.cluster.local:8123"  # ← added
 
 postgresql:
-  enabled: false
+  enabled: true
   fullnameOverride: qa1-langfuse-postgresql
   auth:
+    username: langfuse_user
     password: your_postgres_password
+    database: langfuse
+
 
 redis:
   enabled: false
