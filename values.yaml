@@ -28,6 +28,7 @@ langfuse:
   clickhouseDatabaseUrl: "http://default:your_clickhouse_password@qa1-langfuse-clickhouse.qa1.svc.cluster.local:8123"
 
 
+
 postgresql:
   enabled: true
   fullnameOverride: qa1-langfuse-postgresql
