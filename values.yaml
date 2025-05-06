@@ -37,10 +37,11 @@ postgresql:
 
 
 redis:
-  enabled: false
+  enabled: true
   fullnameOverride: qa1-langfuse-redis
   auth:
     password: your_redis_password
+
 
 zookeeper:
   enabled: false
