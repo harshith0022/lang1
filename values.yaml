@@ -25,7 +25,8 @@ langfuse:
       nodes:
         - host: qa1-langfuse-zookeeper.qa1.svc.cluster.local
           port: 2181
-  clickhouseUrl: "http://qa1-langfuse-clickhouse.qa1.svc.cluster.local:8123"  # ← added
+  clickhouseDatabaseUrl: "http://default:your_clickhouse_password@qa1-langfuse-clickhouse.qa1.svc.cluster.local:8123"
+
 
 postgresql:
   enabled: true
